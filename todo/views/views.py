@@ -21,6 +21,26 @@ class PostView(mixins.ListModelMixin,
     def get(self, request, *args, **kwargs):
         return self.list(self, request, *args, **kwargs)
 
+    def perform_create(self, serializer):
+        # send an email
+        serializer.save()
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+
+class PostCreateView(mixins.ListModelMixin, generics.CreateAPIView):
+    serializer_class = PostSerializer
+    queryset = Post.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+
+class PostListCreateView(generics.ListCreateAPIView):
+    serializer_class = PostSerializer
+    queryset = Post.objects.all()
+
 # class TestView(APIView):
 
 #     permission_classes = (IsAuthenticated,)

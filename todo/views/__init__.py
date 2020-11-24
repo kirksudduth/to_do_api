@@ -1,3 +1,3 @@
 # from .views import TestView
 from .auth.register import register
-from .views import PostView
+from .views import PostView, PostCreateView, PostListCreateView
